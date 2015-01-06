@@ -68,6 +68,7 @@ done
 
 LIB_DIR=/usr/lib/cm_api
 
+mkdir -p $PREFIX/$LIB_DIR
 rsync ${BUILD_DIR}/* $PREFIX/$LIB_DIR/
 
 # Cloudera specific

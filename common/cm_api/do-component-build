@@ -11,20 +11,25 @@ SOURCE_DIR=`pwd`
         MAVEN_INST_DEPLOY=$DO_MAVEN_DEPLOY
     fi
 
-   (cd java && mvn clean $MAVEN_INST_DEPLOY -DskipTests)
-   (cd python && make dist)
-
 mkdir -p build
 
 if [ "${SKIP_ASSEMBLY}" != "yes" ]; then
    cd ..
-   tar czf cm_api-${FULL_VERSION}.tar.gz $SOURCE_DIR
+   mkdir cm_api-${FULL_VERSION}
+   cp -r source/* cm_api-${FULL_VERSION}
+   rm -rf cm_api-${FULL_VERSION}/build
+   tar czf cm_api-${FULL_VERSION}.tar.gz cm_api-${FULL_VERSION}
    mv cm_api-${FULL_VERSION}.tar.gz $SOURCE_DIR/build
    exit 0
 fi
 
+(cd java && mvn clean $MAVEN_INST_DEPLOY -DskipTests)
+(cd python && make dist)
+
+rm -rf build/cm_api-${FULL_VERSION}
 mkdir -p build/cm_api-${FULL_VERSION}
 cd build/cm_api-${FULL_VERSION}
+
 
 mkdir java python
 cp $SOURCE_DIR/java/target/cloudera-manager-api*.jar java/

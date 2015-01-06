@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+set -ex
 
 usage() {
   echo "
@@ -68,8 +68,10 @@ done
 
 LIB_DIR=/usr/lib/cm_api
 
-mkdir -p $PREFIX/$LIB_DIR
-rsync ${BUILD_DIR}/* $PREFIX/$LIB_DIR/
+mkdir -p $PREFIX/$LIB_DIR/java $PREFIX/$LIB_DIR/python
+cp ${BUILD_DIR}/java/target/cloudera-manager-api*.jar $PREFIX/$LIB_DIR/java/
+cp ${BUILD_DIR}/python/dist/*.tar.gz $PREFIX/$LIB_DIR/python/
+cp -r ${BUILD_DIR}/nagios $PREFIX/$LIB_DIR/
 
 # Cloudera specific
 install -d -m 0755 $PREFIX/$LIB_DIR/cloudera

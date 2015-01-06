@@ -25,13 +25,3 @@ fi
 
 (cd java && mvn clean $MAVEN_INST_DEPLOY -DskipTests)
 (cd python && make dist)
-
-rm -rf build/cm_api-${FULL_VERSION}
-mkdir -p build/cm_api-${FULL_VERSION}
-cd build/cm_api-${FULL_VERSION}
-
-
-mkdir java python
-cp $SOURCE_DIR/java/target/cloudera-manager-api*.jar java/
-cp $SOURCE_DIR/python/dist/*.tar.gz python/
-cp -r $SOURCE_DIR/nagios .

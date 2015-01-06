@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -ex 
+
+mkdir -p build
+SOURCE_DIR=`pwd`
+
+    if [ -z "${DO_MAVEN_DEPLOY}" ]; then
+        MAVEN_INST_DEPLOY=install
+    else
+        MAVEN_INST_DEPLOY=$DO_MAVEN_DEPLOY
+    fi
+
+   (cd java && mvn clean $MAVEN_INST_DEPLOY -DskipTests)
+   (cd python && make dist)
+
+mkdir -p build
+
+if [ "${SKIP_ASSEMBLY}" != "yes" ]; then
+   cd ..
+   tar czf cm_api-${FULL_VERSION}.tar.gz $SOURCE_DIR
+   mv cm_api-${FULL_VERSION}.tar.gz $SOURCE_DIR/build
+   exit 0
+fi
+
+mkdir -p build/cm_api-${FULL_VERSION}
+cd build/cm_api-${FULL_VERSION}
+
+mkdir java python
+cp $SOURCE_DIR/java/target/cloudera-manager-api*.jar java/
+cp $SOURCE_DIR/python/dist/*.tar.gz python/
+cp -r $SOURCE_DIR/nagios .

@@ -58,7 +58,7 @@ while true ; do
     esac
 done
 
-for var in PREFIX BUILD_DIR SOURCE_DIR; do
+for var in PREFIX BUILD_DIR; do
   if [ -z "$(eval "echo \$$var")" ]; then
     echo Missing param: $var
     usage

@@ -39,7 +39,7 @@ Cloudera Manager's REST API lets you work with existing tools and programmatical
 %setup -n %{cm_api_name}-%{cm_api_patched_version}
 
 %build
-bash $RPM_SOURCE_DIR/do-component-build
+env FULL_VERSION=${CMF_PATCHED_VERSION} SKIP_ASSEMBLY=yes bash $RPM_SOURCE_DIR/do-component-build
 
 %install
 %__rm -rf $RPM_BUILD_ROOT

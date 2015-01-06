@@ -16,7 +16,7 @@ mkdir -p build
 if [ "${SKIP_ASSEMBLY}" != "yes" ]; then
    cd ..
    mkdir cm_api-${FULL_VERSION}
-   cp -r source/* cm_api-${FULL_VERSION}
+   cp -r $SOURCE_DIR/* cm_api-${FULL_VERSION}
    rm -rf cm_api-${FULL_VERSION}/build
    tar czf cm_api-${FULL_VERSION}.tar.gz cm_api-${FULL_VERSION}
    mv cm_api-${FULL_VERSION}.tar.gz $SOURCE_DIR/build
